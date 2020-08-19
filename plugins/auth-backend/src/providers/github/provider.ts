@@ -68,7 +68,7 @@ export class GithubAuthProvider implements OAuthProviderHandlers {
       idToken: params.id_token,
     };
 
-    // Github provides an id numeric value (123)
+    // GitHub provides an id numeric value (123)
     // as a fallback
     const id = passportProfile!.id;
 
@@ -162,12 +162,12 @@ export function createGithubProvider(
   if (!opts.clientID || !opts.clientSecret) {
     if (process.env.NODE_ENV !== 'development') {
       throw new Error(
-        'Failed to initialize Github auth provider, set AUTH_GITHUB_CLIENT_ID and AUTH_GITHUB_CLIENT_SECRET env vars',
+        'Failed to initialize GitHub auth provider, set AUTH_GITHUB_CLIENT_ID and AUTH_GITHUB_CLIENT_SECRET env vars',
       );
     }
 
     logger.warn(
-      'Github auth provider disabled, set AUTH_GITHUB_CLIENT_ID and AUTH_GITHUB_CLIENT_SECRET env vars to enable',
+      'GitHub auth provider disabled, set AUTH_GITHUB_CLIENT_ID and AUTH_GITHUB_CLIENT_SECRET env vars to enable',
     );
     return undefined;
   }
