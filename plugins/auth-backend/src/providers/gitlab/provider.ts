@@ -157,12 +157,12 @@ export function createGitlabProvider(
   if (!opts.clientID || !opts.clientSecret) {
     if (process.env.NODE_ENV !== 'development') {
       throw new Error(
-        'Failed to initialize Gitlab auth provider, set AUTH_GITLAB_CLIENT_ID and AUTH_GITLAB_CLIENT_SECRET env vars',
+        'Failed to initialize GitLab auth provider, set AUTH_GITLAB_CLIENT_ID and AUTH_GITLAB_CLIENT_SECRET env vars',
       );
     }
 
     logger.warn(
-      'Gitlab auth provider disabled, set AUTH_GITLAB_CLIENT_ID and AUTH_GITLAB_CLIENT_SECRET env vars to enable',
+      'GitLab auth provider disabled, set AUTH_GITLAB_CLIENT_ID and AUTH_GITLAB_CLIENT_SECRET env vars to enable',
     );
     return undefined;
   }
