@@ -62,6 +62,19 @@ async function buildDistWorkspace(workspaceName, rootDir) {
   const workspaceDir = resolvePath(rootDir, workspaceName);
   await fs.ensureDir(workspaceDir);
 
+  const appPkg = await fs.readJson(
+    resolvePath(
+      rootDir,
+      'packages/create-app/templates/default-app/packages/app/package.json.hbs',
+    ),
+  );
+  const backendPkg = await fs.readJson(
+    resolvePath(
+      rootDir,
+      'packages/create-app/templates/default-app/packages/backend/package.json.hbs',
+    ),
+  );
+
   print(`Preparing workspace`);
   await runPlain([
     'yarn',
@@ -73,8 +86,9 @@ async function buildDistWorkspace(workspaceName, rootDir) {
     '@backstage/core',
     '@backstage/dev-utils',
     '@backstage/test-utils',
-    // We don't use the backend itself, but want all of its dependencies
-    'example-backend',
+    // We grab the needed dependencies from the template packages
+    ...Object.keys(appPkg).filter(name => name.startsWith('@backstage/')),
+    ...Object.keys(backendPkg).filter(name => name.startsWith('@backstage/')),
   ]);
 
   print('Pinning yarn version in workspace');
